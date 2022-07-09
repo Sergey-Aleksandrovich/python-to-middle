@@ -1,3 +1,4 @@
+import copy
 from dataclasses import dataclass
 import uuid
 import random
@@ -12,6 +13,9 @@ class Cell:
     name: str = uuid.uuid4()
     size: int = random.randint(1, 10)
 
+    def copy(self):
+
+        return copy.deepcopy(self)
     # если необходимо, снабдите Клетку функцией копирования
 
 
@@ -30,7 +34,7 @@ class PoolCell:
         try:
             cell = self.queue.get_nowait()
         except Empty:
-            # добавьте свой код сюда - необходимо скопировать эталлонную ячейку self.etalon_cell
+            cell = self.etalon_cell.copy()
             cell.color = lambda: (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
         return cell
@@ -40,11 +44,11 @@ class PoolCell:
             Возврат клетки в пул
         :param cell: возвращаемая клетка
         """
-        # добавьте свой код сюда
+        self.queue.put_nowait(cell)
 
     def size(self):
         """Текущий размер пула"""
-        # добавьте свой код сюда
+        return self.queue.qsize()
 
 
 class LiveGame:

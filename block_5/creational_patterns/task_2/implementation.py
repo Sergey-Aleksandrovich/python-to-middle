@@ -46,16 +46,48 @@ class CatBuilder(BuilderAnimal):
     """Создание кошки"""
     def set_name(self):
         self._animal.name = 'cat'
+
+    def set_legs_count(self):
+        self._animal.legs_count = 4
+
+    def set_wing_exit(self):
+        self._animal.wing_exist = False
+
+    def set_roar(self):
+        self._animal.roar = 'meow'
     # добавьте свой код сюда
 
 
 class CuckooBuilder(BuilderAnimal):
     """Создание кукушки"""
+
+    def set_name(self):
+        self._animal.name = 'cuckoo'
+
+    def set_legs_count(self):
+        self._animal.legs_count = 2
+
+    def set_wing_exit(self):
+        self._animal.wing_exist = True
+
+    def set_roar(self):
+        self._animal.roar = 'cucu'
     # добавьте свой код сюда
 
 
 class FishBuilder(BuilderAnimal):
     """Создание рыбы"""
+    def set_name(self):
+        self._animal.name = 'fish'
+
+    def set_legs_count(self):
+        self._animal.legs_count = 0
+
+    def set_wing_exit(self):
+        self._animal.wing_exist = False
+
+    def set_roar(self):
+        self._animal.roar = None
     # добавьте свой код сюда
 
 
