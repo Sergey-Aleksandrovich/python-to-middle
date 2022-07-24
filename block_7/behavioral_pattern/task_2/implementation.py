@@ -1,4 +1,5 @@
-from abc import ABC, abstractmethod
+from abc import ABC
+from abc import abstractmethod
 from enum import IntEnum
 
 
@@ -8,7 +9,25 @@ class Language(IntEnum):
     GERMAN = 3
 
 
-class Mediator(metaclass=ABC):
+words_cat = {
+    Language.ENGLISH: 'cat',
+    Language.RUSSIAN: 'кот',
+    Language.GERMAN: 'katze',
+}
+
+words_dog = {
+    Language.ENGLISH: 'dog',
+    Language.RUSSIAN: 'собака',
+    Language.GERMAN: 'hund',
+}
+words_list = [words_cat, words_dog]
+dictionary = dict()
+for words in words_list:
+    for word in words.values():
+        dictionary.update({word: words})
+
+
+class Mediator(ABC):
     """ Абстрактный класс медиатора - переводчика """
 
     @abstractmethod
@@ -74,4 +93,7 @@ class Translator(Mediator):
         self.foreigners[language] = foreigner
 
     def translate(self, word: str, language_from: Language) -> str:
-        # нужно добавить свой код сюда
+        for language in self.foreigners:
+            self.foreigners[language].last_listen_word = dictionary[word][
+                language
+            ]

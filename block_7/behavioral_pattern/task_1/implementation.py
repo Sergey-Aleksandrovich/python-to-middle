@@ -1,4 +1,17 @@
 from abc import abstractmethod
+import operator
+
+
+def calc(operand, operation):
+    operands = {
+        '+': operator.add,
+        '-': operator.sub,
+        '/': operator.truediv,
+        '*': operator.mul,
+    }
+    if operand in operation:
+        numbers = operation.split(operand)
+        return operands[operand](int(numbers[0]), int(numbers[1]))
 
 
 class ArithmeticOperation:
@@ -22,19 +35,39 @@ class ArithmeticOperation:
 
 class MinusOperation(ArithmeticOperation):
     """Операция вычитания"""
-    # нужно добавить свой код сюда
+
+    def calculate(self, operation: str) -> int:
+        if res := calc('-', operation):
+            return res
+        elif self._next_handler:
+            return self._next_handler.calculate(operation)
 
 
 class PlusOperation(ArithmeticOperation):
     """Операция сложения"""
-    # нужно добавить свой код сюда
+
+    def calculate(self, operation: str) -> int:
+        if res := calc('+', operation):
+            return res
+        elif self._next_handler:
+            return self._next_handler.calculate(operation)
 
 
 class DevideOperation(ArithmeticOperation):
     """Операция деления"""
-    # нужно добавить свой код сюда
+
+    def calculate(self, operation: str) -> int:
+        if res := calc('/', operation):
+            return res
+        elif self._next_handler:
+            return self._next_handler.calculate(operation)
 
 
 class MultiplyOperation(ArithmeticOperation):
     """Опрация умножения"""
-    # нужно добавить свой код сюда
+
+    def calculate(self, operation: str) -> int:
+        if res := calc('*', operation):
+            return res
+        elif self._next_handler:
+            return self._next_handler.calculate(operation)
